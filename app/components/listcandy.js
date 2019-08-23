@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import SingleCandy from './singlecandy';
 
 // redux later, react now
 
@@ -23,15 +24,9 @@ class CandyList extends React.Component {
     const { toDisplay } = this.state;
     return (
       <div>
-        <h1>Look at all this candy</h1>
+        <h1>Look at all this candy:</h1>
         {toDisplay.map(candy => {
-          return (
-            <div key={candy.id}>
-              <h1>{candy.name}</h1>
-              <img src={candy.imageUrl} />
-              <h3>I was birthed: {candy.createdAt}</h3>
-            </div>
-          );
+          return <SingleCandy key={candy.id} {...candy} />;
         })}
       </div>
     );
