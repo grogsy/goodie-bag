@@ -10,6 +10,7 @@ const Root = () => {
     <div>
       <nav>
         <Link to="/candies">Goodie Bag</Link>
+        <Link to="/">Go Back To An Absolutely Empty Homepage</Link>
       </nav>
       <main>
         <h1>Welcome to the Goodie Bag!</h1>

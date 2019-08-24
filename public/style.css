@@ -22,11 +22,12 @@ body::after {
 
 nav {
   align-items: center;
-  background-color: #333333;
+  background-color: #217068;
   color: #c0c0c0;
   display: flex;
   height: 80px;
   padding: 10px;
+  justify-content: space-around;
 }
 
 main {
