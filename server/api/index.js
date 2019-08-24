@@ -1,7 +1,9 @@
-'use strict';
+/* eslint-disable quotes */
+/* eslint-disable linebreak-style */
+"use strict";
 
-const router = require('express').Router();
-const { Candy } = require('../db');
+const router = require("express").Router();
+const { Candy } = require("../db");
 
 // Your routes go here!
 // NOTE: Any routes that you put here are ALREADY mounted on `/api`
@@ -20,13 +22,18 @@ const { Candy } = require('../db');
 // middleware will generate a 404, and send it to your
 // error-handling endware!
 
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   const allItems = await Candy.findAll();
   res.json(allItems);
 });
 
+router.get("/:id", async (req, res, next) => {
+  const thisItem = await Candy.findById(req.params.id);
+  res.json(thisItem);
+});
+
 router.use((req, res, next) => {
-  const err = new Error('API route not found!');
+  const err = new Error("API route not found!");
   err.status = 404;
   next(err);
 });

@@ -3,6 +3,7 @@
 import React from "react";
 import axios from "axios";
 import SingleCandy from "./singlecandy";
+import { Link } from "react-router-dom";
 
 // redux later, react now
 
@@ -27,9 +28,15 @@ class CandyList extends React.Component {
     return (
       <div>
         <h1>Look at all this candy:</h1>
-        {toDisplay.map(candy => {
-          return <SingleCandy key={candy.id} {...candy} />;
-        })}
+        <ul>
+          {toDisplay.map(candy => {
+            return (
+              <li key={candy.id}>
+                <Link to={`/candies/${candy.id}`}>{candy.name}</Link>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     );
   }
