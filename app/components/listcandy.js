@@ -1,6 +1,8 @@
-import React from 'react';
-import axios from 'axios';
-import SingleCandy from './singlecandy';
+/* eslint-disable linebreak-style */
+/* eslint-disable quotes */
+import React from "react";
+import axios from "axios";
+import SingleCandy from "./singlecandy";
 
 // redux later, react now
 
@@ -8,15 +10,15 @@ class CandyList extends React.Component {
   constructor() {
     super();
     this.state = {
-      toDisplay: [],
+      toDisplay: []
     };
-    this.description = 'Useless constructor ik stop reminding me';
+    this.description = "Useless constructor ik stop reminding me";
   }
 
   async componentDidMount() {
-    const { data } = await axios.get('/api');
+    const { data } = await axios.get("/api");
     this.setState({
-      toDisplay: data,
+      toDisplay: data
     });
   }
 
