@@ -1,3 +1,5 @@
+/* eslint-disable quotes */
+/* eslint-disable linebreak-style */
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import axios from "axios";

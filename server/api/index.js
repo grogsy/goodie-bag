@@ -23,13 +23,30 @@ const { Candy } = require("../db");
 // error-handling endware!
 
 router.get("/", async (req, res, next) => {
-  const allItems = await Candy.findAll();
-  res.json(allItems);
+  try {
+    const allItems = await Candy.findAll();
+    res.json(allItems);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/ids", async (req, res, next) => {
+  try {
+    const ids = await Candy.findAll({ attributes: ["id", "name"] });
+    res.json(ids);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/:id", async (req, res, next) => {
-  const thisItem = await Candy.findById(req.params.id);
-  res.json(thisItem);
+  try {
+    const thisItem = await Candy.findById(req.params.id);
+    res.json(thisItem);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.use((req, res, next) => {
