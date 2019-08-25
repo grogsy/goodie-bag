@@ -1,34 +1,13 @@
+/* eslint-disable quotes */
 /* eslint-disable linebreak-style */
 import React from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
-
-// const SingleCandy = ({ name, description, quantity, imageUrl, createdAt }) => {
-//   return (
-//     <div>
-//       <h1>{name}</h1>
-//       <h2>Motto: {description}</h2>
-//       <h4>Current amount (Max 10): {quantity}</h4>
-//       <img src={imageUrl} />
-//       <h3>I was birthed: {createdAt}</h3>
-//     </div>
-//   );
-// };
+import { getSingleItem } from "../reducers";
+import { connect } from "react-redux";
 
 class SingleCandy extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      candy: {}
-    };
-  }
-
-  async componentDidMount() {
-    const id = this.props.match.params.id;
-    const { data } = await axios.get(`/api/${id}`);
-    this.setState({
-      candy: data
-    });
+  componentDidMount() {
+    this.props.getSingleItem(this.props.match.params.id);
   }
 
   render() {
@@ -38,7 +17,7 @@ class SingleCandy extends React.Component {
       quantity,
       imageUrl,
       createdAt
-    } = this.state.candy;
+    } = this.props.singleItem;
     return (
       <div>
         <Link to="/candies">Go back to yo leeeeeeeest</Link>
@@ -52,4 +31,19 @@ class SingleCandy extends React.Component {
   }
 }
 
-export default SingleCandy;
+const mapDispatch = dispatch => {
+  return {
+    getSingleItem: id => dispatch(getSingleItem(id))
+  };
+};
+
+const mapState = state => {
+  return {
+    singleItem: state.singleItem
+  };
+};
+
+export default connect(
+  mapState,
+  mapDispatch
+)(SingleCandy);
