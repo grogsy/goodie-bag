@@ -40,6 +40,18 @@ router.get("/ids", async (req, res, next) => {
   }
 });
 
+router.put("/:id", async (req, res, next) => {
+  try {
+    const newData = req.body;
+    const candy = await Candy.findById(req.params.id);
+    await candy.update(...newData);
+    res.json(candy);
+  } catch (error) {
+    console.log(req);
+    next(error);
+  }
+});
+
 router.get("/:id", async (req, res, next) => {
   try {
     const thisItem = await Candy.findById(req.params.id);

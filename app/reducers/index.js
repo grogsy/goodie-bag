@@ -11,6 +11,7 @@ import axios from "axios";
 // messages
 const GOT_PREV_DATA = "GOT_PREV_DATA";
 const GOT_SINGLE_ITEM = "GOT_SINGLE_ITEM";
+const UPDATE_QUANTITY = "UPDATE_QUANTITY";
 
 // action
 const gotPreviewData = data => ({
@@ -23,11 +24,26 @@ const gotSingleItem = data => ({
   data
 });
 
+const updateItemQuantity = updatedObject => ({
+  type: UPDATE_QUANTITY,
+  updatedObject
+});
+
 // creators
 export const getPreviewData = () => {
   return async dispatch => {
     const { data } = await axios.get("/api/ids");
     dispatch(gotPreviewData(data));
+  };
+};
+
+export const updateQuantity = (id, amount) => {
+  return async dispatch => {
+    const updatedAmount = amount + 1;
+    const updatedObject = await axios.put(`/api/${id}`, {
+      quantity: updatedAmount
+    });
+    dispatch(updateItemQuantity(updatedObject));
   };
 };
 
@@ -48,6 +64,8 @@ const rootReducer = (state = initialState, action) => {
     case GOT_PREV_DATA:
       return { ...state, previewData: action.data };
     case GOT_SINGLE_ITEM:
+      return { ...state, singleItem: action.data };
+    case UPDATE_QUANTITY:
       return { ...state, singleItem: action.data };
     default:
       return state;

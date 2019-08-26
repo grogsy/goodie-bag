@@ -2,8 +2,10 @@
 /* eslint-disable linebreak-style */
 import React from "react";
 import { Link } from "react-router-dom";
-import { getSingleItem } from "../reducers";
+import { getSingleItem, updateQuantity } from "../reducers";
 import { connect } from "react-redux";
+
+///IMPORTANT NEED TO HOOK IN NEW QUANTITY UPDATED ONCLICK FOR INPUT
 
 class SingleCandy extends React.Component {
   componentDidMount() {
@@ -11,6 +13,7 @@ class SingleCandy extends React.Component {
   }
 
   render() {
+    const id = this.props.match.params.id;
     const {
       name,
       description,
@@ -23,7 +26,17 @@ class SingleCandy extends React.Component {
         <Link to="/candies">Go back to yo leeeeeeeest</Link>
         <h1>{name}</h1>
         <h2>Motto: {description}</h2>
-        <h4>Current amount (Max 10): {quantity}</h4>
+        <div className="amount">
+          <h4>Current amount (Max 10): </h4>
+          <input
+            className="qt"
+            type="number"
+            value={quantity}
+            name="quantity"
+            step="1"
+            onChange={() => this.props.updateQuantity(id, quantity)}
+          />
+        </div>
         <img src={imageUrl} />
         <h3>I was birthed: {createdAt}</h3>
       </div>
@@ -33,7 +46,8 @@ class SingleCandy extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    getSingleItem: id => dispatch(getSingleItem(id))
+    getSingleItem: id => dispatch(getSingleItem(id)),
+    updateQuantity: (id, amount) => dispatch(updateQuantity(id, amount))
   };
 };
 

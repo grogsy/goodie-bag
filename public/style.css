@@ -36,3 +36,8 @@ main {
   flex-direction: column;
   justify-content: center;
 }
+
+.amount {
+  display: flex;
+  flex-direction: row;
+}
