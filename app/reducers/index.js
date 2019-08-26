@@ -24,7 +24,9 @@ const gotSingleItem = data => ({
   data
 });
 
-const updateItemQuantity = updatedObject => ({
+// Reason for 3+ errors of debugging:
+//   go to case UPDATE_QUANTITY to find out why!
+const updatedItemQuantity = updatedObject => ({
   type: UPDATE_QUANTITY,
   updatedObject
 });
@@ -42,7 +44,7 @@ export const updateQuantity = (id, updatedAmount) => {
     const { data } = await axios.put(`/api/${id}`, {
       quantity: updatedAmount
     });
-    dispatch(updateItemQuantity(data));
+    dispatch(updatedItemQuantity(data));
   };
 };
 
@@ -65,6 +67,8 @@ const rootReducer = (state = initialState, action) => {
     case GOT_SINGLE_ITEM:
       return { ...state, singleItem: action.data };
     case UPDATE_QUANTITY:
+      // was passing in updated state an action.data(undefined)
+      // when i should've been passing an action.updatedObject this entire time
       return { ...state, singleItem: action.updatedObject };
     default:
       return state;
