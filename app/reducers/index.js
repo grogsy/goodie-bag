@@ -37,13 +37,12 @@ export const getPreviewData = () => {
   };
 };
 
-export const updateQuantity = (id, amount) => {
+export const updateQuantity = (id, updatedAmount) => {
   return async dispatch => {
-    const updatedAmount = amount + 1;
-    const updatedObject = await axios.put(`/api/${id}`, {
+    const { data } = await axios.put(`/api/${id}`, {
       quantity: updatedAmount
     });
-    dispatch(updateItemQuantity(updatedObject));
+    dispatch(updateItemQuantity(data));
   };
 };
 
@@ -66,7 +65,7 @@ const rootReducer = (state = initialState, action) => {
     case GOT_SINGLE_ITEM:
       return { ...state, singleItem: action.data };
     case UPDATE_QUANTITY:
-      return { ...state, singleItem: action.data };
+      return { ...state, singleItem: action.updatedObject };
     default:
       return state;
   }

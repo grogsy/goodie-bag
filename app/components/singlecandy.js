@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 import { getSingleItem, updateQuantity } from "../reducers";
 import { connect } from "react-redux";
 
-///IMPORTANT NEED TO HOOK IN NEW QUANTITY UPDATED ONCLICK FOR INPUT
-
 class SingleCandy extends React.Component {
   componentDidMount() {
     this.props.getSingleItem(this.props.match.params.id);
@@ -34,7 +32,11 @@ class SingleCandy extends React.Component {
             value={quantity}
             name="quantity"
             step="1"
-            onChange={() => this.props.updateQuantity(id, quantity)}
+            onChange={event => {
+              let newQuantity = parseInt(event.target.value, 10);
+              this.props.updateQuantity(id, newQuantity);
+              this.props.getSingleItem(id);
+            }}
           />
         </div>
         <img src={imageUrl} />
