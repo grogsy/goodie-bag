@@ -42,12 +42,11 @@ router.get("/ids", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-    const newData = req.body;
+    const updatedQuantity = req.body;
     const candy = await Candy.findById(req.params.id);
-    await candy.update(...newData);
+    await candy.update(updatedQuantity);
     res.json(candy);
   } catch (error) {
-    console.log(req);
     next(error);
   }
 });
