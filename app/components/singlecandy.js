@@ -35,7 +35,6 @@ class SingleCandy extends React.Component {
             onChange={event => {
               let newQuantity = parseInt(event.target.value, 10);
               this.props.updateQuantity(id, newQuantity);
-              this.props.getSingleItem(id);
             }}
           />
         </div>
